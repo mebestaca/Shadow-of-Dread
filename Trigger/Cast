@@ -1,0 +1,179 @@
+Shadow of Dread Cast
+
+    Events
+
+        Unit - A unit Starts the effect of an ability
+
+    Conditions
+
+        (Ability being cast) Equal to SD_CasterAbility
+
+    Actions
+
+        -------- - --------
+
+        -------- temporary values --------
+
+        Set SD_TempCaster = (Triggering unit)
+
+        Set SD_TempPlayer = (Triggering player)
+
+        Set SD_TempLevel = (Level of SD_CasterAbility for SD_TempCaster)
+
+        -------- - --------
+
+        -------- indexing --------
+
+        Set SD_Index = (SD_Index + 1)
+
+        Set SD_Caster[SD_Index] = SD_TempCaster
+
+        Set SD_Player[SD_Index] = SD_TempPlayer
+
+        Set SD_Level[SD_Index] = SD_TempLevel
+
+        -------- - --------
+
+        -------- angles and distance --------
+
+        Set SD_Point1 = (Position of SD_TempCaster)
+
+        Set SD_Point2 = (Target point of ability being cast)
+
+        Set SD_TempDistance = (Distance between SD_Point1 and SD_Point2)
+
+        Set SD_Angle[SD_Index] = (Angle from SD_Point1 to SD_Point2)
+
+        Custom script:   call RemoveLocation(udg_SD_Point2)
+
+        Set SD_MaxDistance[SD_Index] = SD_TempDistance
+
+        -------- - --------
+
+        -------- initialize values --------
+
+        Set SD_TimeLeft[SD_Index] = SD_DamageDelay[SD_Level[SD_Index]]
+
+        Set SD_ActionId[SD_Index] = 0
+
+        Set SD_CurrentHeight[SD_Index] = 0.00
+
+        Set SD_CurrentDistance[SD_Index] = 0.00
+
+        Set SD_Flag[SD_Index] = True
+
+        If (All Conditions are True) then do (Then Actions) else do (Else Actions)
+
+            If - Conditions
+
+                (Level of SD_OutwardAbility for SD_Caster[SD_Index]) Equal to 1
+
+            Then - Actions
+
+                Set SD_IsOutward[SD_Index] = True
+
+            Else - Actions
+
+                Set SD_IsOutward[SD_Index] = False
+
+        -------- - --------
+
+        -------- calculate damage --------
+
+        Set SD_TempStrDamage = ((Real((Strength of SD_Caster[SD_Index] (Include bonuses)))) x (SD_StrengthDamage[SD_Level[SD_Index]] x 0.01))
+
+        Set SD_TempAgiDamage = ((Real((Agility of SD_Caster[SD_Index] (Include bonuses)))) x (SD_AgilityDamage[SD_Level[SD_Index]] x 0.01))
+
+        Set SD_TempIntDamage = ((Real((Intelligence of SD_Caster[SD_Index] (Include bonuses)))) x (SD_IntelligenceDamage[SD_Level[SD_Index]] x 0.01))
+
+        Set SD_Damage[SD_Index] = ((SD_TempStrDamage + SD_TempAgiDamage) + (SD_TempIntDamage + SD_AbsoluteDamage[SD_Level[SD_Index]]))
+
+        -------- - --------
+
+        -------- create projectile --------
+
+        Unit - Create 1 SD_DummyType for Neutral Passive at SD_Point1 facing SD_Angle[SD_Index] degrees
+
+        Set SD_DaggerUnit[SD_Index] = (Last created unit)
+
+        Custom script:   call RemoveLocation(udg_SD_Point1)
+
+        Unit - Add Storm Crow Form to SD_DaggerUnit[SD_Index]
+
+        Unit - Remove Storm Crow Form from SD_DaggerUnit[SD_Index]
+
+        Set SD_PlaceHolder = SD_DaggerUnit[SD_Index]
+
+        Special Effect - Create a special effect attached to the origin of SD_DaggerUnit[SD_Index] using SD_DaggerModel
+
+        Set SD_DaggerEffect[SD_Index] = (Last created special effect)
+
+        -------- - --------
+
+        -------- run effect --------
+
+        If (All Conditions are True) then do (Then Actions) else do (Else Actions)
+
+            If - Conditions
+
+                SD_Index Equal to 1
+
+            Then - Actions
+
+                Trigger - Turn on Shadow of Dread Effect <gen>
+
+            Else - Actions
+
+        -------- - --------
+
+        -------- pre calculate angle --------
+
+        Set SD_CrowCounter = SD_CrowCount[SD_Level[SD_Index]]
+
+        Set SD_AngleAdjustment = (360.00 / (Real(SD_CrowCounter)))
+
+        Set SD_TempAngle = SD_Angle[SD_Index]
+
+        For each (Integer SD_Looper) from 1 to SD_CrowCounter, do (Actions)
+
+            Loop - Actions
+
+                -------- - --------
+
+                -------- indexing --------
+
+                Set SD_Index = (SD_Index + 1)
+
+                Set SD_Caster[SD_Index] = SD_TempCaster
+
+                Set SD_Player[SD_Index] = SD_TempPlayer
+
+                Set SD_Level[SD_Index] = SD_TempLevel
+
+                -------- - --------
+
+                -------- angle and distance --------
+
+                Set SD_Angle[SD_Index] = SD_TempAngle
+
+                Set SD_TempAngle = (SD_TempAngle - SD_AngleAdjustment)
+
+                Set SD_MaxDistance[SD_Index] = SD_TempDistance
+
+                Set SD_CrowDistance[SD_Index] = (SD_SafeAoE[SD_Level[SD_Index]] + (SD_CrowAoE[SD_Level[SD_Index]] / 2.00))
+
+                -------- - --------
+
+                -------- initialize values --------
+
+                Set SD_TimeLeft[SD_Index] = SD_DamageDelay[SD_Level[SD_Index]]
+
+                Set SD_ActionId[SD_Index] = 1
+
+                Set SD_CurrentHeight[SD_Index] = 0.00
+
+                Set SD_CurrentDistance[SD_Index] = 0.00
+
+                Set SD_Flag[SD_Index] = True
+
+                Set SD_DaggerUnit[SD_Index] = SD_PlaceHolder
