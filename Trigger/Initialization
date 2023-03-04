@@ -1,0 +1,343 @@
+Shadow of Dread Init
+
+    Events
+
+        Map initialization
+
+    Conditions
+
+    Actions
+
+        -------- - --------
+
+        -------- determines the Shadow of Dread ability --------
+
+        Set SD_CasterAbility = Shadow of Dread (Hero)
+
+        -------- - --------
+
+        -------- determines the slow ability --------
+
+        Set SD_SlowAbility = Shadow of Dread (Slow)
+
+        -------- - --------
+
+        -------- Note: you can adjust the attack speed, movement speed reduction and reduction using object editor --------
+
+        -------- find the Shadow of Dread (Slow) and modify the fields to your liking --------
+
+        -------- - --------
+
+        -------- determines the hold ability --------
+
+        Set SD_HoldAbility = Shadow of Dread (Hold)
+
+        -------- - --------
+
+        -------- Note: you can adjust the hold duration using object editor --------
+
+        -------- find the Shadow of Dread (Hold) and modify the fields to your liking --------
+
+        -------- - --------
+
+        -------- determines the slow buff given by the slow ability --------
+
+        Set SD_SlowBuff = Shadow of Dread (Slow)
+
+        -------- - --------
+
+        -------- determines the ability for toggling inward and outward --------
+
+        Set SD_OutwardAbility = Shadow of Dread (Outward)
+
+        Set SD_InwardAbility = Shadow of Dread (Inward)
+
+        -------- - --------
+
+        -------- set true if the ability will be set to outward by default --------
+
+        Set SD_DefaultOutward = True
+
+        -------- - --------
+
+        -------- determines the absolute damage dealt by the ability --------
+
+        Set SD_AbsoluteDamage[1] = 100.00
+
+        Set SD_AbsoluteDamage[2] = 150.00
+
+        Set SD_AbsoluteDamage[3] = 200.00
+
+        -------- - --------
+
+        -------- determines the damage dealt based on agility --------
+
+        -------- Note: to deal 30% damage from strength use 30 not 0.3 --------
+
+        Set SD_StrengthDamage[1] = 0.00
+
+        Set SD_StrengthDamage[2] = 0.00
+
+        Set SD_StrengthDamage[3] = 0.00
+
+        -------- - --------
+
+        -------- determines the damage dealt based on agility --------
+
+        -------- Note: to deal 30% damage from agility use 30 not 0.3 --------
+
+        Set SD_AgilityDamage[1] = 20.00
+
+        Set SD_AgilityDamage[2] = 20.00
+
+        Set SD_AgilityDamage[3] = 20.00
+
+        -------- - --------
+
+        -------- determines the damage dealt based on agility --------
+
+        -------- Note: to deal 30% damage from intelligence use 30 not 0.3 --------
+
+        Set SD_IntelligenceDamage[1] = 0.00
+
+        Set SD_IntelligenceDamage[2] = 0.00
+
+        Set SD_IntelligenceDamage[3] = 0.00
+
+        -------- - --------
+
+        -------- determines the attack type of the damage --------
+
+        Set SD_AttackType = Spells
+
+        -------- - --------
+
+        -------- determines the damage type of the damage dealt --------
+
+        Set SD_DamageType = Normal
+
+        -------- - --------
+
+        -------- determines the speed of the dagger --------
+
+        Set SD_DaggerSpeed[1] = 30.00
+
+        Set SD_DaggerSpeed[2] = 30.00
+
+        Set SD_DaggerSpeed[3] = 30.00
+
+        -------- - --------
+
+        -------- determines the starting height of the dagger --------
+
+        Set SD_MaxHeight[1] = 150.00
+
+        Set SD_MaxHeight[2] = 150.00
+
+        Set SD_MaxHeight[3] = 150.00
+
+        -------- - --------
+
+        -------- determines the AoE of the safe area --------
+
+        Set SD_SafeAoE[1] = 150.00
+
+        Set SD_SafeAoE[2] = 150.00
+
+        Set SD_SafeAoE[3] = 150.00
+
+        -------- - --------
+
+        -------- determines the AoE outside the safe area where units be gets slowed and damage --------
+
+        Set SD_CrowAoE[1] = 150.00
+
+        Set SD_CrowAoE[2] = 150.00
+
+        Set SD_CrowAoE[3] = 150.00
+
+        -------- - --------
+
+        -------- determines the delay before the damage is dealt on enemies --------
+
+        Set SD_DamageDelay[1] = 2.50
+
+        Set SD_DamageDelay[2] = 2.00
+
+        Set SD_DamageDelay[3] = 1.50
+
+        -------- - --------
+
+        -------- determines the model size of the crows --------
+
+        Set SD_CrowModelSize[1] = 100.00
+
+        Set SD_CrowModelSize[2] = 100.00
+
+        Set SD_CrowModelSize[3] = 100.00
+
+        -------- - --------
+
+        -------- determines the size of the model used in the safe area --------
+
+        Set SD_TargetModelSize[1] = 150.00
+
+        Set SD_TargetModelSize[2] = 150.00
+
+        Set SD_TargetModelSize[3] = 150.00
+
+        -------- - --------
+
+        -------- determines the number of crows --------
+
+        Set SD_CrowCount[1] = 4
+
+        Set SD_CrowCount[2] = 5
+
+        Set SD_CrowCount[3] = 6
+
+        -------- - --------
+
+        -------- determines the crow's angle in which they are rotated --------
+
+        Set SD_TurnRate[1] = 5.00
+
+        Set SD_TurnRate[2] = 5.00
+
+        Set SD_TurnRate[3] = 5.00
+
+        -------- - --------
+
+        -------- determines the color of the crow --------
+
+        Set SD_Red = 0.00
+
+        Set SD_Blue = 0.00
+
+        Set SD_Green = 0.00
+
+        -------- - --------
+
+        -------- determines the maximum and minimum flying height of the crow --------
+
+        Set SD_CrowMaximum = 500.00
+
+        Set SD_CrowMinimum = 200.00
+
+        -------- - --------
+
+        -------- determines the model used by the projectile --------
+
+        Set SD_DaggerModel = Abilities\Weapons\IllidanMissile\IllidanMissile.mdl
+
+        -------- - --------
+
+        -------- determines the model used by the crow --------
+
+        Set SD_CrowModel = units\creeps\WarEagle\WarEagle.mdl
+
+        -------- - --------
+
+        -------- determines the model used as trails of the crow --------
+
+        Set SD_ShadowModel = Abilities\Weapons\AvengerMissile\AvengerMissile.mdl
+
+        -------- - --------
+
+        -------- determines the model used to mark unit hit by the ability --------
+
+        Set SD_ExplosionModel = Abilities\Spells\Undead\DeathCoil\DeathCoilSpecialArt.mdl
+
+        Set SD_UnitAttach = origin
+
+        -------- - --------
+
+        -------- determines the model used to mark the safe area --------
+
+        Set SD_SafeAreaModel1 = Abilities\Spells\Other\Drain\DrainCaster.mdl
+
+        Set SD_SafeAreaModel2 = Abilities\Spells\NightElf\TargetArtLumber\TargetArtLumber.mdl
+
+        -------- - --------
+
+        -------- determines the dummy unit type --------
+
+        Set SD_DummyType = Crow's Deathfall (dummy)
+
+        -------- - --------
+
+        -------- add all abilities in your map that unlearns hero ability --------
+
+        -------- Note: It is important to add you abilities as the ability is adding a new ability to the unit when learning --------
+
+        -------- keep using the SD_UnLearnList and increase the index then add abilities that unlearns hero ability --------
+
+        Set SD_UnlearnList[1] = Tome of Retraining
+
+        -------- - --------
+
+        -------- set SD_UnlearnTotal to the number of abilities that unlearns hero abilities --------
+
+        Set SD_UnlearnTotal = 1
+
+        -------- - --------
+
+        -------- one dummy caster setup --------
+
+        Set SD_Point1 = (Random point in (Playable map area))
+
+        Unit - Create 1 SD_DummyType for Neutral Passive at SD_Point1 facing Default building facing degrees
+
+        Set SD_Dummy = (Last created unit)
+
+        Custom script:   call RemoveLocation(udg_SD_Point1)
+
+        Unit - Add SD_CasterAbility to SD_Dummy
+
+        Unit - Remove SD_CasterAbility from SD_Dummy
+
+        Unit - Add SD_InwardAbility to SD_Dummy
+
+        Unit - Remove SD_InwardAbility from SD_Dummy
+
+        Unit - Add SD_OutwardAbility to SD_Dummy
+
+        Unit - Remove SD_OutwardAbility from SD_Dummy
+
+        Unit - Add SD_HoldAbility to SD_Dummy
+
+        Unit - Add SD_SlowAbility to SD_Dummy
+
+        Visibility - Create an initially Enabled visibility modifier for Neutral Passive emitting Visibility across (Playable map area)
+
+        Custom script:   set bj_wantDestroyGroup=true
+
+        Unit Group - Pick every unit in (Units in (Playable map area)) and do (Actions)
+
+            Loop - Actions
+
+                Set SD_PickedUnit = (Picked unit)
+
+                If (All Conditions are True) then do (Then Actions) else do (Else Actions)
+
+                    If - Conditions
+
+                        (Level of SD_CasterAbility for SD_PickedUnit) Greater than 0
+
+                    Then - Actions
+
+                        If (All Conditions are True) then do (Then Actions) else do (Else Actions)
+
+                            If - Conditions
+
+                                SD_DefaultOutward Equal to True
+
+                            Then - Actions
+
+                                Unit - Add SD_OutwardAbility to SD_PickedUnit
+
+                            Else - Actions
+
+                                Unit - Add SD_InwardAbility to SD_PickedUnit
+
+                    Else - Actions
