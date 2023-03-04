@@ -1,0 +1,435 @@
+Shadow of Dread Effect
+
+    Events
+
+        Time - Every 0.03 seconds of game time
+
+    Conditions
+
+    Actions
+
+        For each (Integer SD_Looper) from 1 to SD_Index, do (Actions)
+
+            Loop - Actions
+
+                -------- - --------
+
+                -------- stage 1: dagger is flying --------
+
+                If (All Conditions are True) then do (Then Actions) else do (Else Actions)
+
+                    If - Conditions
+
+                        SD_CurrentDistance[SD_Looper] Less than SD_MaxDistance[SD_Looper]
+
+                    Then - Actions
+
+                        -------- - --------
+
+                        -------- moves the dagger --------
+
+                        Set SD_CurrentDistance[SD_Looper] = (SD_CurrentDistance[SD_Looper] + SD_DaggerSpeed[SD_Level[SD_Looper]])
+
+                        If (All Conditions are True) then do (Then Actions) else do (Else Actions)
+
+                            If - Conditions
+
+                                SD_ActionId[SD_Looper] Equal to 0
+
+                            Then - Actions
+
+                                Set SD_CurrentHeight[SD_Looper] = (SD_MaxHeight[SD_Level[SD_Looper]] - ((SD_CurrentDistance[SD_Looper] / SD_MaxDistance[SD_Looper]) x SD_MaxHeight[SD_Level[SD_Looper]]))
+
+                                Animation - Change SD_DaggerUnit[SD_Looper] flying height to SD_CurrentHeight[SD_Looper] at 0.00
+
+                                Set SD_Point1 = (Position of SD_DaggerUnit[SD_Looper])
+
+                                Set SD_Point2 = (SD_Point1 offset by SD_DaggerSpeed[SD_Level[SD_Looper]] towards SD_Angle[SD_Looper] degrees)
+
+                                Custom script:   call SetUnitX(udg_SD_DaggerUnit[udg_SD_Looper], GetLocationX(udg_SD_Point2))
+
+                                Custom script:   call SetUnitY(udg_SD_DaggerUnit[udg_SD_Looper], GetLocationY(udg_SD_Point2))
+
+                                Custom script:   call RemoveLocation(udg_SD_Point1)
+
+                                Custom script:   call RemoveLocation(udg_SD_Point2)
+
+                            Else - Actions
+
+                    Else - Actions
+
+                        -------- - --------
+
+                        -------- dagger has landed --------
+
+                        If (All Conditions are True) then do (Then Actions) else do (Else Actions)
+
+                            If - Conditions
+
+                                SD_Flag[SD_Looper] Equal to True
+
+                            Then - Actions
+
+                                If (All Conditions are True) then do (Then Actions) else do (Else Actions)
+
+                                    If - Conditions
+
+                                        SD_ActionId[SD_Looper] Equal to 0
+
+                                    Then - Actions
+
+                                        -------- - --------
+
+                                        -------- change special effect --------
+
+                                        Special Effect - Destroy SD_DaggerEffect[SD_Looper]
+
+                                        Special Effect - Create a special effect attached to the origin of SD_DaggerUnit[SD_Looper] using SD_SafeAreaModel2
+
+                                        Set SD_DaggerEffect[SD_Looper] = (Last created special effect)
+
+                                        Special Effect - Create a special effect attached to the origin of SD_DaggerUnit[SD_Looper] using SD_SafeAreaModel1
+
+                                        Set SD_AreaEffect[SD_Looper] = (Last created special effect)
+
+                                        Animation - Change SD_DaggerUnit[SD_Looper]'s size to (SD_TargetModelSize[SD_Level[SD_Looper]]%, SD_TargetModelSize[SD_Level[SD_Looper]]%, SD_TargetModelSize[SD_Level[SD_Looper]]%) of its original size
+
+                                    Else - Actions
+
+                                        -------- - --------
+
+                                        -------- create crows --------
+
+                                        Set SD_Point1 = (Position of SD_DaggerUnit[SD_Looper])
+
+                                        Set SD_Point2 = (SD_Point1 offset by SD_CrowDistance[SD_Looper] towards SD_Angle[SD_Looper] degrees)
+
+                                        Unit - Create 1 SD_DummyType for Neutral Passive at SD_Point2 facing SD_Angle[SD_Looper] degrees
+
+                                        Set SD_CrowUnit[SD_Looper] = (Last created unit)
+
+                                        Custom script:   call RemoveLocation(udg_SD_Point1)
+
+                                        Custom script:   call RemoveLocation(udg_SD_Point2)
+
+                                        Set SD_TempAngle = (SD_Angle[SD_Looper] + 90.00)
+
+                                        Unit - Make SD_CrowUnit[SD_Looper] face SD_TempAngle over 0.00 seconds
+
+                                        Special Effect - Create a special effect attached to the origin of SD_CrowUnit[SD_Looper] using SD_ShadowModel
+
+                                        Set SD_DaggerEffect[SD_Looper] = (Last created special effect)
+
+                                        Special Effect - Create a special effect attached to the origin of SD_CrowUnit[SD_Looper] using SD_CrowModel
+
+                                        Set SD_AreaEffect[SD_Looper] = (Last created special effect)
+
+                                        Unit - Add Storm Crow Form to SD_CrowUnit[SD_Looper]
+
+                                        Unit - Remove Storm Crow Form from SD_CrowUnit[SD_Looper]
+
+                                        Animation - Change SD_CrowUnit[SD_Looper] flying height to (Random real number between SD_CrowMinimum and SD_CrowMaximum) at 0.00
+
+                                        Animation - Change SD_CrowUnit[SD_Looper]'s vertex coloring to (SD_Red%, SD_Green%, SD_Blue%) with 0.00% transparency
+
+                                        Animation - Change SD_CrowUnit[SD_Looper]'s size to (SD_CrowModelSize[SD_Level[SD_Looper]]%, SD_CrowModelSize[SD_Level[SD_Looper]]%, SD_CrowModelSize[SD_Level[SD_Looper]]%) of its original size
+
+                            Else - Actions
+
+                        -------- - --------
+
+                        -------- notify --------
+
+                        Set SD_Flag[SD_Looper] = False
+
+                -------- - --------
+
+                -------- stage 2: dagger has landed --------
+
+                If (All Conditions are True) then do (Then Actions) else do (Else Actions)
+
+                    If - Conditions
+
+                        SD_Flag[SD_Looper] Equal to False
+
+                    Then - Actions
+
+                        -------- - --------
+
+                        -------- checks the delay --------
+
+                        If (All Conditions are True) then do (Then Actions) else do (Else Actions)
+
+                            If - Conditions
+
+                                SD_TimeLeft[SD_Looper] Greater than 0.00
+
+                            Then - Actions
+
+                                -------- - --------
+
+                                Set SD_TimeLeft[SD_Looper] = (SD_TimeLeft[SD_Looper] - 0.03)
+
+                                -------- - --------
+
+                                If (All Conditions are True) then do (Then Actions) else do (Else Actions)
+
+                                    If - Conditions
+
+                                        SD_ActionId[SD_Looper] Equal to 0
+
+                                    Then - Actions
+
+                                        Set SD_Point1 = (Position of SD_DaggerUnit[SD_Looper])
+
+                                        Set SD_DamageGroup = (Units within (SD_SafeAoE[SD_Level[SD_Looper]] + SD_CrowAoE[SD_Level[SD_Looper]]) of SD_Point1)
+
+                                        Set SD_SafeGroup = (Units within SD_SafeAoE[SD_Level[SD_Looper]] of SD_Point1)
+
+                                        Unit Group - Remove all units of SD_SafeGroup from SD_DamageGroup
+
+                                        Custom script:   call RemoveLocation(udg_SD_Point1)
+
+                                        Unit - Set level of SD_SlowAbility for SD_Dummy to SD_Level[SD_Looper]
+
+                                        -------- - --------
+
+                                        -------- slow units near the area --------
+
+                                        Unit Group - Pick every unit in SD_DamageGroup and do (Actions)
+
+                                            Loop - Actions
+
+                                                Set SD_PickedUnit = (Picked unit)
+
+                                                If (All Conditions are True) then do (Then Actions) else do (Else Actions)
+
+                                                    If - Conditions
+
+                                                        (SD_PickedUnit is A structure) Equal to False
+
+                                                        (SD_PickedUnit is Magic Immune) Equal to False
+
+                                                        (SD_PickedUnit is Mechanical) Equal to False
+
+                                                        (SD_PickedUnit is alive) Equal to True
+
+                                                        (SD_PickedUnit belongs to an enemy of SD_Player[SD_Looper]) Equal to True
+
+                                                        (SD_PickedUnit has buff SD_SlowBuff) Equal to False
+
+                                                    Then - Actions
+
+                                                        Set SD_Point1 = (Position of SD_PickedUnit)
+
+                                                        Custom script:   call SetUnitX(udg_SD_Dummy, GetLocationX(udg_SD_Point1))
+
+                                                        Custom script:   call SetUnitY(udg_SD_Dummy, GetLocationY(udg_SD_Point1))
+
+                                                        Custom script:   call RemoveLocation(udg_SD_Point1)
+
+                                                        Unit - Order SD_Dummy to Undead Necromancer - Cripple SD_PickedUnit
+
+                                                    Else - Actions
+
+                                                        Set SD_PickedUnit = No unit
+
+                                        Custom script:   call DestroyGroup(udg_SD_DamageGroup)
+
+                                        Custom script:   call DestroyGroup(udg_SD_SafeGroup)
+
+                                    Else - Actions
+
+                                        -------- - --------
+
+                                        -------- rotate crows --------
+
+                                        Set SD_Angle[SD_Looper] = (SD_Angle[SD_Looper] + SD_TurnRate[SD_Level[SD_Looper]])
+
+                                        Set SD_TempAngle = (SD_Angle[SD_Looper] + 90.00)
+
+                                        Unit - Make SD_CrowUnit[SD_Looper] face SD_TempAngle over 0.00 seconds
+
+                                        Set SD_Point1 = (Position of SD_DaggerUnit[SD_Looper])
+
+                                        Set SD_Point2 = (SD_Point1 offset by SD_CrowDistance[SD_Looper] towards SD_Angle[SD_Looper] degrees)
+
+                                        Custom script:   call SetUnitX(udg_SD_CrowUnit[udg_SD_Looper], GetLocationX(udg_SD_Point2))
+
+                                        Custom script:   call SetUnitY(udg_SD_CrowUnit[udg_SD_Looper], GetLocationY(udg_SD_Point2))
+
+                                        Custom script:   call RemoveLocation(udg_SD_Point1)
+
+                                        Custom script:   call RemoveLocation(udg_SD_Point2)
+
+                            Else - Actions
+
+                                If (All Conditions are True) then do (Then Actions) else do (Else Actions)
+
+                                    If - Conditions
+
+                                        SD_ActionId[SD_Looper] Equal to 0
+
+                                    Then - Actions
+
+                                        -------- - --------
+
+                                        -------- deal damage and hold enemies --------
+
+                                        Unit - Set level of SD_HoldAbility for SD_Dummy to SD_Level[SD_Looper]
+
+                                        Set SD_Point1 = (Position of SD_DaggerUnit[SD_Looper])
+
+                                        If (All Conditions are True) then do (Then Actions) else do (Else Actions)
+
+                                            If - Conditions
+
+                                                SD_IsOutward[SD_Looper] Equal to True
+
+                                            Then - Actions
+
+                                                Set SD_DamageGroup = (Units within (SD_SafeAoE[SD_Level[SD_Looper]] + SD_CrowAoE[SD_Level[SD_Looper]]) of SD_Point1)
+
+                                                Set SD_SafeGroup = (Units within SD_SafeAoE[SD_Level[SD_Looper]] of SD_Point1)
+
+                                                Unit Group - Remove all units of SD_SafeGroup from SD_DamageGroup
+
+                                                Custom script:   call DestroyGroup(udg_SD_SafeGroup)
+
+                                            Else - Actions
+
+                                                Set SD_DamageGroup = (Units within SD_SafeAoE[SD_Level[SD_Looper]] of SD_Point1)
+
+                                        Custom script:   call RemoveLocation(udg_SD_Point1)
+
+                                        Unit Group - Pick every unit in SD_DamageGroup and do (Actions)
+
+                                            Loop - Actions
+
+                                                Set SD_PickedUnit = (Picked unit)
+
+                                                If (All Conditions are True) then do (Then Actions) else do (Else Actions)
+
+                                                    If - Conditions
+
+                                                        (SD_PickedUnit is A structure) Equal to False
+
+                                                        (SD_PickedUnit is Magic Immune) Equal to False
+
+                                                        (SD_PickedUnit is Mechanical) Equal to False
+
+                                                        (SD_PickedUnit is alive) Equal to True
+
+                                                        (SD_PickedUnit belongs to an enemy of SD_Player[SD_Looper]) Equal to True
+
+                                                    Then - Actions
+
+                                                        Unit - Cause SD_Caster[SD_Looper] to damage SD_PickedUnit, dealing SD_Damage[SD_Looper] damage of attack type SD_AttackType and damage type SD_DamageType
+
+                                                        Special Effect - Create a special effect attached to the SD_UnitAttach of SD_PickedUnit using SD_ExplosionModel
+
+                                                        Special Effect - Destroy (Last created special effect)
+
+                                                        Set SD_Point1 = (Position of SD_PickedUnit)
+
+                                                        Custom script:   call SetUnitX(udg_SD_Dummy, GetLocationX(udg_SD_Point1))
+
+                                                        Custom script:   call SetUnitY(udg_SD_Dummy, GetLocationY(udg_SD_Point1))
+
+                                                        Custom script:   call RemoveLocation(udg_SD_Point1)
+
+                                                        Unit - Order SD_Dummy to Night Elf Keeper Of The Grove - Entangling Roots SD_PickedUnit
+
+                                                    Else - Actions
+
+                                                        Set SD_PickedUnit = No unit
+
+                                        Custom script:   call DestroyGroup(udg_SD_DamageGroup)
+
+                                        Special Effect - Destroy SD_AreaEffect[SD_Looper]
+
+                                        Special Effect - Destroy SD_DaggerEffect[SD_Looper]
+
+                                        Unit - Add a 0.01 second Generic expiration timer to SD_DaggerUnit[SD_Looper]
+
+                                    Else - Actions
+
+                                        -------- - --------
+
+                                        -------- clean up --------
+
+                                        Special Effect - Destroy SD_AreaEffect[SD_Looper]
+
+                                        Special Effect - Destroy SD_DaggerEffect[SD_Looper]
+
+                                        Unit - Add a 0.01 second Generic expiration timer to SD_CrowUnit[SD_Looper]
+
+                                        Unit - Add a 0.01 second Generic expiration timer to SD_DaggerUnit[SD_Looper]
+
+                                Set SD_ActionId[SD_Looper] = 3
+
+                    Else - Actions
+
+                -------- - --------
+
+                -------- stage 3: deindex --------
+
+                If (All Conditions are True) then do (Then Actions) else do (Else Actions)
+
+                    If - Conditions
+
+                        SD_ActionId[SD_Looper] Equal to 3
+
+                    Then - Actions
+
+                        Set SD_ActionId[SD_Looper] = SD_ActionId[SD_Index]
+
+                        Set SD_Angle[SD_Looper] = SD_Angle[SD_Index]
+
+                        Set SD_Caster[SD_Looper] = SD_Caster[SD_Index]
+
+                        Set SD_CurrentDistance[SD_Looper] = SD_CurrentDistance[SD_Index]
+
+                        Set SD_CurrentHeight[SD_Looper] = SD_CurrentHeight[SD_Index]
+
+                        Set SD_DaggerEffect[SD_Looper] = SD_DaggerEffect[SD_Index]
+
+                        Set SD_DaggerUnit[SD_Looper] = SD_DaggerUnit[SD_Index]
+
+                        Set SD_Damage[SD_Looper] = SD_Damage[SD_Index]
+
+                        Set SD_Flag[SD_Looper] = SD_Flag[SD_Index]
+
+                        Set SD_Level[SD_Looper] = SD_Level[SD_Index]
+
+                        Set SD_CrowDistance[SD_Looper] = SD_CrowDistance[SD_Index]
+
+                        Set SD_MaxDistance[SD_Looper] = SD_MaxDistance[SD_Index]
+
+                        Set SD_Player[SD_Looper] = SD_Player[SD_Index]
+
+                        Set SD_AreaEffect[SD_Looper] = SD_AreaEffect[SD_Index]
+
+                        Set SD_CrowUnit[SD_Looper] = SD_CrowUnit[SD_Index]
+
+                        Set SD_TimeLeft[SD_Looper] = SD_TimeLeft[SD_Index]
+
+                        Set SD_IsOutward[SD_Looper] = SD_IsOutward[SD_Index]
+
+                        Set SD_Looper = (SD_Looper - 1)
+
+                        Set SD_Index = (SD_Index - 1)
+
+                        If (All Conditions are True) then do (Then Actions) else do (Else Actions)
+
+                            If - Conditions
+
+                                SD_Index Equal to 0
+
+                            Then - Actions
+
+                                Trigger - Turn off (This trigger)
+
+                            Else - Actions
+
+                    Else - Actions
