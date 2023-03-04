@@ -1,0 +1,51 @@
+Shadow of Dread Unlearn
+
+    Events
+
+        Unit - A unit Starts the effect of an ability
+
+    Conditions
+
+        Or - Any (Conditions) are true
+
+            Conditions
+
+                (Level of SD_InwardAbility for (Triggering unit)) Equal to 1
+
+                (Level of SD_OutwardAbility for (Triggering unit)) Equal to 1
+
+    Actions
+
+        -------- - --------
+
+        -------- conditions are placed on the trigger to avoid firing inappropriately --------
+
+        Set SD_TempCaster = (Triggering unit)
+
+        For each (Integer SD_Looper) from 1 to SD_UnlearnTotal, do (Actions)
+
+            Loop - Actions
+
+                If (All Conditions are True) then do (Then Actions) else do (Else Actions)
+
+                    If - Conditions
+
+                        (Ability being cast) Equal to SD_UnlearnList[SD_Looper]
+
+                    Then - Actions
+
+                        If (All Conditions are True) then do (Then Actions) else do (Else Actions)
+
+                            If - Conditions
+
+                                (Level of SD_OutwardAbility for SD_TempCaster) Equal to 1
+
+                            Then - Actions
+
+                                Unit - Remove SD_OutwardAbility from SD_TempCaster
+
+                            Else - Actions
+
+                                Unit - Remove SD_InwardAbility from SD_TempCaster
+
+                    Else - Actions
