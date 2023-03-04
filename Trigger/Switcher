@@ -1,0 +1,37 @@
+Shadow of Dread Switcher
+
+    Events
+
+        Unit - A unit Starts the effect of an ability
+
+    Conditions
+
+        Or - Any (Conditions) are true
+
+            Conditions
+
+                (Ability being cast) Equal to SD_OutwardAbility
+
+                (Ability being cast) Equal to SD_InwardAbility
+
+    Actions
+
+        Set SD_TempCaster = (Triggering unit)
+
+        If (All Conditions are True) then do (Then Actions) else do (Else Actions)
+
+            If - Conditions
+
+                (Ability being cast) Equal to SD_OutwardAbility
+
+            Then - Actions
+
+                Unit - Remove SD_OutwardAbility from SD_TempCaster
+
+                Unit - Add SD_InwardAbility to SD_TempCaster
+
+            Else - Actions
+
+                Unit - Remove SD_InwardAbility from SD_TempCaster
+
+                Unit - Add SD_OutwardAbility to SD_TempCaster
