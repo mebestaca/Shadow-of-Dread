@@ -1,0 +1,27 @@
+Shadow of Dread Learn
+
+    Events
+
+        Unit - A unit Learns a skill
+
+    Conditions
+
+        (Level of SD_CasterAbility for (Triggering unit)) Equal to 1
+
+    Actions
+
+        Set SD_TempCaster = (Triggering unit)
+
+        If (All Conditions are True) then do (Then Actions) else do (Else Actions)
+
+            If - Conditions
+
+                SD_DefaultOutward Equal to True
+
+            Then - Actions
+
+                Unit - Add SD_OutwardAbility to SD_TempCaster
+
+            Else - Actions
+
+                Unit - Add SD_InwardAbility to SD_TempCaster
